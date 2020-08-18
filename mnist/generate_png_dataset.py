@@ -15,7 +15,7 @@ def main():
     args = parser.parse_args()
 
     # ask for confirmation
-    if not input("[INFO]: this will create XGB of data, proceed? (Y/N): ") == 'Y':
+    if not input("[INFO]: this will write ~40MB of data, proceed? (Y/N): ") == 'Y':
         print("[INFO]: exiting")
         exit()
 
