@@ -8,7 +8,6 @@ import os
 import argparse
 import mnist
 import cv2
-import numpy as np
 import pandas as pd
 
 def main():
@@ -29,8 +28,8 @@ def main():
     test_labels = mnist.test_labels()
 
     # create labels dataframes
-    train_labels_df = pd.DataFrame(columns=['Image Filename', 'Label'])
-    test_labels_df = pd.DataFrame(columns=['Image Filename', 'Label'])
+    train_labels_df = pd.DataFrame(columns=['Filename', 'Label'])
+    test_labels_df = pd.DataFrame(columns=['Filename', 'Label'])
 
     # make some new directories at the write location
     if not os.path.exists("{}train".format(args.write_dir)):
@@ -49,7 +48,7 @@ def main():
         # append filename and label to labels dataframe
         train_labels_df = train_labels_df.append(
             {
-                'Image Filename': "{:05d}.png".format(i),
+                'Filename': "{:05d}.png".format(i),
                 'Label': train_labels[i],
             },
             ignore_index=True,
@@ -69,7 +68,7 @@ def main():
         # append filename and label to labels dataframe
         test_labels_df = test_labels_df.append(
             {
-                'Image Filename': "{:05d}.png".format(i),
+                'Filename': "{:05d}.png".format(i),
                 'Label': test_labels[i],
             },
             ignore_index=True,
