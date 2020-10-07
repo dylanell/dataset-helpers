@@ -1,0 +1,4 @@
+numpy
+mnist
+opencv
+panda
