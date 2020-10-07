@@ -2,8 +2,6 @@
 Generate a dataset of saved PNG images from the MNIST dataset.
 """
 
-# TODO: directly append to csv labels file to speed this up
-
 import os
 import argparse
 import mnist
