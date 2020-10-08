@@ -12,7 +12,7 @@
 
 ### Prerequisites:
 
-This project assumes you have the CIFAR dataset directory saved locally on your machine by downloading and extracting the [CIFAR-10 Python Dataset](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). Extracting the tarball from the above link should result in a local directory titled `cifar-10-batches-py`. This directory can be renamed, but do not edit the contents as the dataset generator script assumes the original directory format provided by the CIFAR dataset website.
+This project assumes you have the CIFAR-10 Python Dataset directory saved locally on your machine by downloading and extracting the dataset from the [CIFAR Website](https://www.cs.toronto.edu/~kriz/cifar.html) or directly from [this link](https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz). Extracting the tarball from the above link should result in a local directory titled `cifar-10-batches-py`. This directory can be renamed, but do not edit the contents as the dataset generator script assumes the original directory format provided by the dataset website.
 
 ### `generate_png_dataset.py`:
 
