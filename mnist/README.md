@@ -21,7 +21,7 @@ $ generate_png_dataset.py <path/to/write/directory/>
 
 This script uses the `mnist` Python package to load the MNIST dataset and re-write it locally as a dataset of PNG files on disk.
 
-The MNIST data is organized into training/testing directories of PNG image files accompanied by a `csv` file listing one-to-one correspondences between the image file names and their label. This is summarized by the directory tree structure below.
+The data is organized into training/testing directories of PNG image files accompanied by a `csv` file listing one-to-one correspondences between the image file names and their label. This is summarized by the directory tree structure below.
 
 ```
 dataset_directory/
