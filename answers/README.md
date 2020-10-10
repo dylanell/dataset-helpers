@@ -26,14 +26,14 @@ Run:
 $ generate_png_dataset.py https://www.answers.com/t/<your_topic> <path/to/write/directory/>
 ```
 
-Optionally, change the `min_samples` argument to control the minimum number of samples to scrape. The script writes question-answer pairs to a `qa_pairs.csv` file after collecting at least `min_samples` question-answer pairs, or by running out of topic pages.
+Optionally, change the `min_samples` argument to control the minimum number of samples to scrape. The script writes pre-processed question-answer pairs to a `qa_pairs.csv` file after collecting at least `min_samples` question-answer pairs, or by running out of topic pages.
 
 The `qa_pairs.csv` file has the format:
 
 ```
 Question, Answer
-Query 1 text?, Response 1 text.
-Query 2 text?, Response 2 text.
+[Query 1 tokens list], [Response 1 tokens list]
+[Query 2 tokens list], [Response 2 tokens list]
 ...
 ```
 
