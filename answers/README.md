@@ -32,8 +32,8 @@ The `qa_pairs.csv` file has the format:
 
 ```
 Question, Answer
-[Query 1 tokens list], [Response 1 tokens list]
-[Query 2 tokens list], [Response 2 tokens list]
+Raw query 1, Raw response 1, [Processed query 1 tokens list], [Processed response 1 tokens list]
+Raw query 2, Raw response 2, , [Processed query 2 tokens list], [Processed response 2 tokens list]
 ...
 ```
 

@@ -35,11 +35,12 @@ def main():
     page_num = 0
 
     # create dataframe to hold question answer pairs
-    df = pd.DataFrame(columns=['Question', 'Answer'])
+    df = pd.DataFrame(columns=['Question Raw', 'Answer Raw',
+        'Question Processed', 'Answer Processed'])
 
     print('[INFO]: scraping pages for \'{}\''.format(args.read_url))
 
-    while (len(df) < args.min_samples):
+    while len(df) < args.min_samples:
         # get page content using a mozilla user header string
         headers = {'User-Agent': 'Mozilla/5.0'}
         page = requests.get(
@@ -64,14 +65,13 @@ def main():
 
                 # if both question and answer present
                 if test_qa_is_good(q, a):
-                    # process the text
-                    q_processed = process_text(q.text)
-                    a_processed = process_text(a.text)
-
                     # append q-a pair to dataframe
-                    df = df.append(
-                        {'Question': q_processed, 'Answer': a_processed},
-                        ignore_index=True)
+                    df = df.append({
+                        'Question Raw': q.text,
+                        'Answer Raw': a.text,
+                        'Question Processed': process_text(q.text),
+                        'Answer Processed': process_text(a.text)
+                    }, ignore_index=True)
 
             page_num += 1
         else:
