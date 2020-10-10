@@ -8,6 +8,7 @@ This project scrapes question-answer pairs from a specific topic on [Answers.com
 
 ### Python Packages:
 
+- requests
 - pandas
 - bs4
 - unidecode
