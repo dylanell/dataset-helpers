@@ -2,14 +2,12 @@
 Generate a dataset of question-answer pairs on a singular topic from answers.com.
 '''
 
-# nltk preprocessing
-# TODO: simplify data (Dog == dog == dogg) using nltk
-# TODO: build vocabulary using nltk
-
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import argparse
+
+from text_utils import process_text
 
 def test_qa_is_good(q, a):
     # reject if question or answer is None
@@ -35,8 +33,6 @@ def main():
     args = parser.parse_args()
 
     page_num = 0
-
-    #https://www.answers.com/t/diabetes/best?page=0
 
     # create dataframe to hold question answer pairs
     df = pd.DataFrame(columns=['Question', 'Answer'])
@@ -68,9 +64,13 @@ def main():
 
                 # if both question and answer present
                 if test_qa_is_good(q, a):
+                    # process the text
+                    q_processed = process_text(q.text)
+                    a_processed = process_text(a.text)
+
                     # append q-a pair to dataframe
                     df = df.append(
-                        {'Question': q.text, 'Answer': a.text},
+                        {'Question': q_processed, 'Answer': a_processed},
                         ignore_index=True)
 
             page_num += 1
