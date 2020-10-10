@@ -6,8 +6,9 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import argparse
+import pickle
 
-from text_utils import process_text
+from text_utils import process_text, build_dictionary
 
 def test_qa_is_good(q, a):
     # reject if question or answer is None
@@ -81,8 +82,19 @@ def main():
     print('[INFO]: scraped {} pages and collected {} samples'.\
         format(page_num+1, len(df)))
 
-    # write dataframe to csv
+    # corpus of all words in processed data
+    corpus = \
+        df['Question Processed'].tolist() + df['Answer Processed'].tolist()
+
+    # build word dictionary from corpus
+    dictionary = build_dictionary(corpus)
+
+    # pickle dataframe
     df.to_pickle(args.write_dir+'qa_pairs.pickle')
+
+    # pickle dictionary
+    with open(args.write_dir+'dictionary.pickle', 'wb') as fp:
+        pickle.dump(dictionary, fp)
 
 if __name__ == '__main__':
     main()

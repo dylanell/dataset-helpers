@@ -13,6 +13,7 @@ This project scrapes question-answer pairs from a specific topic on [Answers.com
 - unidecode
 - nltk (Download extras: punkt)
 - inflect
+- gensim
 
 ### Prerequisites:
 
@@ -28,13 +29,25 @@ $ generate_png_dataset.py https://www.answers.com/t/<your_topic> <path/to/write/
 
 Optionally, change the `min_samples` argument to control the minimum number of samples to scrape. The script writes pre-processed question-answer pairs to a `pickle` file after collecting at least `min_samples` question-answer pairs, or by running out of topic pages.
 
-The question-answer pairs file is pickled from a `Pandas DataFrame` with the format:
+Running the above script produces two artifacts; a data file of question-answer pairs accompanied by a vocabulary dictionary mapping unique integer values to every unique word found in the question-answer pairs data file.
+
+The question-answer pairs data file is pickled from a `Pandas DataFrame` with the format:
 
 ```
 Question Raw, Answer Raw, Question Processed, Answer Processed
 Raw query 1, Raw response 1, [Processed query 1 tokens list], [Processed response 1 tokens list]
 Raw query 2, Raw response 2, , [Processed query 2 tokens list], [Processed response 2 tokens list]
 ...
+```
+
+The vocabulary dictionary is pickled from a dictionary produced using the `gensim.corpora.Dictionary` method in the format:
+
+```
+{
+  (int) index 1: (string) word 1,
+  (int) index 2: (string) word 2,
+  ...
+}
 ```
 
 ### References:
