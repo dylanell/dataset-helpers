@@ -10,6 +10,9 @@ This project scrapes question-answer pairs from a specific topic on [Answers.com
 
 - pandas
 - bs4
+- unidecode
+- nltk (Download extras: punkt)
+- inflect
 
 ### Prerequisites:
 
@@ -33,3 +36,14 @@ Query 1 text?, Response 1 text.
 Query 2 text?, Response 2 text.
 ...
 ```
+
+### References:
+
+1. General text normalization and processing:
+  - https://medium.com/@datamonsters/text-preprocessing-in-python-steps-tools-and-examples-bf025f872908
+
+2. Text decontraction:
+  - https://stackoverflow.com/q/49007346
+
+3. Flattening lists of lists while ignoring strings:
+  - https://stackoverflow.com/a/17867797
