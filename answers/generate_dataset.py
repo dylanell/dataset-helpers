@@ -82,7 +82,7 @@ def main():
         format(page_num+1, len(df)))
 
     # write dataframe to csv
-    df.to_csv(args.write_dir+'qa_pairs.csv', index=False)
+    df.to_pickle(args.write_dir+'qa_pairs.pickle')
 
 if __name__ == '__main__':
     main()

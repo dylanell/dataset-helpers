@@ -26,12 +26,12 @@ Run:
 $ generate_png_dataset.py https://www.answers.com/t/<your_topic> <path/to/write/directory/>
 ```
 
-Optionally, change the `min_samples` argument to control the minimum number of samples to scrape. The script writes pre-processed question-answer pairs to a `qa_pairs.csv` file after collecting at least `min_samples` question-answer pairs, or by running out of topic pages.
+Optionally, change the `min_samples` argument to control the minimum number of samples to scrape. The script writes pre-processed question-answer pairs to a `pickle` file after collecting at least `min_samples` question-answer pairs, or by running out of topic pages.
 
-The `qa_pairs.csv` file has the format:
+The question-answer pairs file is pickled from a `Pandas DataFrame` with the format:
 
 ```
-Question, Answer
+Question Raw, Answer Raw, Question Processed, Answer Processed
 Raw query 1, Raw response 1, [Processed query 1 tokens list], [Processed response 1 tokens list]
 Raw query 2, Raw response 2, , [Processed query 2 tokens list], [Processed response 2 tokens list]
 ...
