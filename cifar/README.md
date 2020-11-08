@@ -19,7 +19,7 @@ This project assumes you have the CIFAR-10 Python Dataset directory saved locall
 Run:
 
 ```
-$ generate_png_dataset.py <path/to/read/directory> <path/to/write/directory/>
+$ python generate_png_dataset.py <path/to/read/directory> <path/to/write/directory/>
 ```
 
 This script uses the extracted `cifar-10-batches-py` directory (or whatever you renamed it) to load the CIFAR-10 dataset and re-write it locally as a dataset of PNG files on disk.

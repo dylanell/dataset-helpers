@@ -25,7 +25,7 @@ Before running `generate_dataset.py` to scrape data on a specific topic, you sho
 Run:
 
 ```
-$ generate_png_dataset.py https://www.answers.com/t/<your_topic> <path/to/write/directory/>
+$ python generate_png_dataset.py https://www.answers.com/t/<your_topic> <path/to/write/directory/>
 ```
 
 Optionally, change the `min_samples` argument to control the minimum number of samples to scrape. The script writes pre-processed question-answer pairs to a `pickle` file after collecting at least `min_samples` question-answer pairs, or by running out of topic pages.
