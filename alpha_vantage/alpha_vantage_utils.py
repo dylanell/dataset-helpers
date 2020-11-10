@@ -5,14 +5,17 @@ Reference: https://www.alphavantage.co/documentation/
 
 import requests
 import pandas as pd
+from json import JSONDecodeError
 import io
 
-def get_time_series_data(function, symbol, apikey, outputsize='full', datatype='csv'):
+
+def get_time_series_data(
+        function, symbol, apikey, output_size='full', datatype='csv'):
     """
     - function (str): Specifies which type of data to pull. Refer to API docs.
     - symbol (str): Specifies which stock (i.e. 'IBM') to pull data from.
     - apikey (str): Your API access key from Alpha Vantage.
-    - outputsize (str): 'full' (default) for 20 years of data or 'compact' for
+    - output_size (str): 'full' (default) for 20 years of data or 'compact' for
         only 100 data samples.
     - datatype (str): 'csv' (default) to return data in Pandas dataframe or
         'json' to return data as Python dictionary.
@@ -22,7 +25,7 @@ def get_time_series_data(function, symbol, apikey, outputsize='full', datatype='
     request = \
         'https://www.alphavantage.co/query?function={}&symbol={}' \
         '&outputsize={}&apikey={}&datatype={}'. \
-        format(function, symbol, outputsize, apikey, datatype)
+        format(function, symbol, output_size, apikey, datatype)
 
     # query endpoint
     response = requests.get(request)
@@ -31,19 +34,19 @@ def get_time_series_data(function, symbol, apikey, outputsize='full', datatype='
     try:
         response_json = response.json()
         if 'Error Message' in list(response_json.keys()):
-            #print('[ALPHAVANTAGE ERROR]')
+            # print('[ALPHAVANTAGE ERROR]')
             return 0
         elif 'Note' in list(response_json.keys()):
-            #print('[ALPHAVANTAGE RATE LIMIT]')
+            # print('[ALPHAVANTAGE RATE LIMIT]')
             return -1
         elif 'Information' in list(response_json.keys()):
-            #print('[ALPHAVANTAGE DAY LIMIT]')
+            # print('[ALPHAVANTAGE DAY LIMIT]')
             return -2
-    except:
+    except JSONDecodeError:
         pass
 
     # return data in desired format
-    if (datatype == 'csv'):
+    if datatype == 'csv':
         return pd.read_csv(io.BytesIO(response.content), encoding='utf8')
     else:
         return response.json()

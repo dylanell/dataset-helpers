@@ -10,6 +10,7 @@ import argparse
 
 from alpha_vantage_utils import get_time_series_data
 
+
 def main():
     # parse args
     parser = argparse.ArgumentParser()
@@ -22,8 +23,8 @@ def main():
 
     # get symbols for all markets
     nasdaq_symbols_df = pd.read_csv('market_symbols/nasdaq_symbols.csv')
-    amex_symbols_df = pd.read_csv('market_symbols/amex_symbols.csv')
-    nyse_symbols_df = pd.read_csv('market_symbols/nyse_symbols.csv')
+    # amex_symbols_df = pd.read_csv('market_symbols/amex_symbols.csv')
+    # nyse_symbols_df = pd.read_csv('market_symbols/nyse_symbols.csv')
 
     # configure Alpha Vantage args
     function = 'TIME_SERIES_DAILY_ADJUSTED'
@@ -33,12 +34,12 @@ def main():
     for symbol in nasdaq_symbols_df['Symbol']:
         # request data
         data = get_time_series_data(
-            function, symbol, apikey, outputsize='full', datatype='csv')
+            function, symbol, apikey, output_size='full', datatype='csv')
 
-        if (type(data) == int and data == 0):
+        if type(data) == int and data == 0:
             # error or no data for this symbol
             print('[INFO]: Error or missing data for {}'.format(symbol))
-        elif (type(data) == int and data == -1):
+        elif type(data) == int and data == -1:
             # rate limited, wait 60 seconds
             print('[INFO]: waiting 60 seconds...')
 
@@ -47,8 +48,17 @@ def main():
 
             # request data again
             data = get_time_series_data(
-                function, symbol, apikey, outputsize='full', datatype='csv')
-        elif (type(data) == int and data == -2):
+                function, symbol, apikey, output_size='full', datatype='csv')
+
+            # we got some legit data for a symbol
+            print('[INFO]: Writing data for {}'.format(symbol))
+
+            # add column if not already in dataset
+            open_df = open_df.merge(
+                data[['timestamp', 'open']], how='outer', on='timestamp')\
+                .rename({'open': symbol}, axis=1)
+
+        elif type(data) == int and data == -2:
             # day limit, exit to try again tomorrow
             print('[INFO]: reached daily request limit; exiting')
             exit()
@@ -57,12 +67,14 @@ def main():
             print('[INFO]: Writing data for {}'.format(symbol))
 
             # add column if not already in dataset
-            open_df = open_df.merge(data[['timestamp', 'open']], how='outer',
-                on='timestamp').rename({'open': symbol}, axis=1)
+            open_df = open_df.merge(
+                data[['timestamp', 'open']], how='outer', on='timestamp')\
+                .rename({'open': symbol}, axis=1)
 
         # save data to csv
         open_df.to_csv(
             '{}open_prices.csv'.format(args.write_dir), index=False)
+
 
 if __name__ == '__main__':
     main()

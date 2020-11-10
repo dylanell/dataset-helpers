@@ -1,12 +1,13 @@
-'''
+"""
 Generate a dataset of saved PNG images from the MNIST dataset.
-'''
+"""
 
 import os
 import argparse
 import mnist
 import cv2
 import pandas as pd
+
 
 def main():
     # parse args
@@ -15,8 +16,8 @@ def main():
     args = parser.parse_args()
 
     # ask for confirmation
-    if not input('[INFO]: this will write ~40MB of data, proceed? (Y/N): ') \
-            == 'Y':
+    if not input(
+            '[INFO]: this will write ~40MB of data, proceed? (Y/N): ') == 'Y':
         print('[INFO]: exiting')
         exit()
 
@@ -54,7 +55,8 @@ def main():
         )
 
     # write train labels to csv
-    train_labels_df.to_csv('{}train_labels.csv'.format(args.write_dir), index=False)
+    train_labels_df.to_csv('{}train_labels.csv'.format(args.write_dir),
+                           index=False)
 
     print('[INFO]: writing mnist testing images')
     for i, img in enumerate(test_imgs):
@@ -74,7 +76,9 @@ def main():
         )
 
     # write test labels to csv
-    test_labels_df.to_csv('{}test_labels.csv'.format(args.write_dir), index=False)
+    test_labels_df.to_csv('{}test_labels.csv'.format(args.write_dir),
+                          index=False)
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     main()
