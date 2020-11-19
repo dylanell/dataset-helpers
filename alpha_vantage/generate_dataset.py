@@ -36,10 +36,8 @@ def main():
         data = get_time_series_data(
             function, symbol, apikey, output_size='full', datatype='csv')
 
-        if type(data) == int and data == 0:
-            # error or no data for this symbol
-            print('[INFO]: Error or missing data for {}'.format(symbol))
-        elif type(data) == int and data == -1:
+        # rate limit check block
+        if type(data) == int and data == -1:
             # rate limited, wait 60 seconds
             print('[INFO]: waiting 60 seconds...')
 
@@ -50,14 +48,9 @@ def main():
             data = get_time_series_data(
                 function, symbol, apikey, output_size='full', datatype='csv')
 
-            # we got some legit data for a symbol
-            print('[INFO]: Writing data for {}'.format(symbol))
-
-            # add column if not already in dataset
-            open_df = open_df.merge(
-                data[['timestamp', 'open']], how='outer', on='timestamp')\
-                .rename({'open': symbol}, axis=1)
-
+        if type(data) == int and data == 0:
+            # error or no data for this symbol
+            print('[INFO]: Error or missing data for {}'.format(symbol))
         elif type(data) == int and data == -2:
             # day limit, exit to try again tomorrow
             print('[INFO]: reached daily request limit; exiting')
