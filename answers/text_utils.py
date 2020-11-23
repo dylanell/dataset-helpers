@@ -6,7 +6,6 @@ import nltk
 import unidecode
 import re
 import inflect
-import gensim
 
 # initialize inflect library engine
 inflect_engine = inflect.engine()
@@ -111,14 +110,3 @@ def process_text(text):
     # stemmed_tokens = list(map(lambda x: stemmer.stem(x), tokens))
 
     return tokens
-
-
-def build_dictionary(corpus):
-    # build dictionary using gensim
-    dictionary = gensim.corpora.Dictionary(corpus)
-
-    # filter dictionary
-
-    # add special characters to dictionary
-
-    return dictionary

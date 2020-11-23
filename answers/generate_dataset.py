@@ -7,9 +7,8 @@ import requests
 from bs4 import BeautifulSoup
 import pandas as pd
 import argparse
-import pickle
 
-from text_utils import process_text, build_dictionary
+from text_utils import process_text
 
 
 def test_qa_is_good(q, a):
@@ -86,19 +85,18 @@ def main():
     print('[INFO]: scraped {} pages and collected {} samples'.
           format(page_num + 1, len(df)))
 
-    # corpus of all words in processed data
-    corpus = \
-        df['Question Processed'].tolist() + df['Answer Processed'].tolist()
-
-    # build word dictionary from corpus
-    dictionary = build_dictionary(corpus)
-
     # pickle dataframe
-    df.to_pickle(args.write_dir + 'qa_pairs.pickle')
+    df.to_pickle('{}qa_pairs.pickle'.format(args.write_dir))
 
-    # pickle dictionary
-    with open(args.write_dir + 'dictionary.pickle', 'wb') as fp:
-        pickle.dump(dictionary, fp)
+    # write raw question/answers to csv
+    df[['Question Raw', 'Answer Raw']].to_csv('{}qa_pairs_raw.csv'
+                                              .format(args.write_dir),
+                                              index=False)
+
+    # write processed questions/answers to csv
+    df[['Question Processed', 'Answer Processed']].applymap(
+        lambda x: ' '.join(x)).to_csv(
+        '{}qa_pairs_processed.csv'.format(args.write_dir), index=False)
 
 
 if __name__ == '__main__':
