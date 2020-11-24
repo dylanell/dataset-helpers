@@ -1,6 +1,7 @@
 # Answers.com Topic Dataset Helpers
 
-This project scrapes question-answer pairs from a specific topic on [Answers.com](https://www.answers.com/).
+This project scrapes question-answer pairs from a specific topic on [Answers
+.com](https://www.answers.com/).
 
 ### Environment:
 
@@ -18,7 +19,21 @@ This project scrapes question-answer pairs from a specific topic on [Answers.com
 
 ### Prerequisites:
 
-Before running `generate_dataset.py` to scrape data on a specific topic, you should check that the topic category exists in "Answers.com" by verifying that there is a *topic tile* for that topic. The URL passed to `generate_dataset.py` should be the landing page URL for the specific topic (from selecting a topic tile). For example, to check that a topic category for "Diabetes" exists, you could first start by searching a question about diabetes, such as "What is diabetes?". Selecting the first answer should bring you to [this answer page](https://www.answers.com/Q/What_is_Diabetes), which will have topic tiles along the top of the question block. In this case, a topic tile for "Diabetes" should be present. Clicking this tile will then bring you to the first "Answers.com" page for the topic of "Diabetes", which should now be at the url: "https://www.answers.com/t/diabetes". Since this URL corresponds to an existing topic in Answers.com, can pass it to the `generate_dataset.py` script in this project to scrape the data from multiple pages on this topic.
+Before running `generate_dataset.py` to scrape data on a specific topic, you
+should check that the topic category exists in "Answers.com" by verifying
+that there is a *topic tile* for that topic. The URL passed to
+`generate_dataset.py` should be the landing page URL for the specific topic
+(from selecting a topic tile). For example, to check that a topic category
+for "Diabetes" exists, you could first start by searching a question about
+diabetes, such as "What is diabetes?". Selecting the first answer should
+bring you to [this answer page](https://www.answers.com/Q/What_is_Diabetes
+), which will have topic tiles along the top of the question block. In this
+case, a topic tile for "Diabetes" should be present. Clicking this tile will
+then bring you to the first "Answers.com" page for the topic of "Diabetes
+", which should now be at the url: "https://www.answers.com/t/diabetes
+". Since this URL corresponds to an existing topic in Answers.com, can pass
+it to the `generate_dataset.py` script in this project to scrape the data
+from multiple pages on this topic.
 
 ### `generate_dataset.py`:
 
@@ -28,28 +43,36 @@ Run:
 $ python generate_png_dataset.py https://www.answers.com/t/<your_topic> <path/to/write/directory/>
 ```
 
-Optionally, change the `min_samples` argument to control the minimum number of samples to scrape. The script writes pre-processed question-answer pairs to a `pickle` file after collecting at least `min_samples` question-answer pairs, or by running out of topic pages.
+Optionally, change the `min_samples` argument to control the minimum number
+ of samples to scrape. The script writes pre-processed question-answer pairs
+  to a `pickle` file after collecting at least `min_samples` question-answer
+   pairs, or by running out of topic pages.
 
-Running the above script produces two artifacts; a data file of question-answer pairs accompanied by a vocabulary dictionary mapping unique integer values to every unique word found in the question-answer pairs data file.
+Running the above script produces two artifacts; a data file of question
+-answer pairs accompanied by a vocabulary dictionary mapping unique integer
+ values to every unique word found in the question-answer pairs data file.
 
-The question-answer pairs data file is pickled from a `Pandas DataFrame` with the format:
+The question-answer pairs data file is saved in both unprocessed and
+ processed formats. The unprocessed data file is witten in the format:
 
 ```
-Question Raw, Answer Raw, Question Processed, Answer Processed
-Raw query 1, Raw response 1, [Processed query 1 tokens list], [Processed response 1 tokens list]
-Raw query 2, Raw response 2, , [Processed query 2 tokens list], [Processed response 2 tokens list]
+Question Raw, Answer Raw,
+Raw question 1, Raw answer 1
+Raw question 2, Raw answer 2
 ...
 ```
 
-The vocabulary dictionary is pickled from a dictionary produced using the `gensim.corpora.Dictionary` method in the format:
+The processed data file is written in the format:
 
 ```
-{
-  (int) index 1: (string) word 1,
-  (int) index 2: (string) word 2,
-  ...
-}
+Question Processed, Answer Processed,
+Processed question 1, Processed answer 1
+Processed question 2, Processed answer 2
+...
 ```
+
+The processed data file is constructed such that simple tokenization by
+ whitespace can be performed if using this data file for NLP applications.
 
 ### References:
 

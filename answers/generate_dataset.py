@@ -85,9 +85,6 @@ def main():
     print('[INFO]: scraped {} pages and collected {} samples'.
           format(page_num + 1, len(df)))
 
-    # pickle dataframe
-    df.to_pickle('{}qa_pairs.pickle'.format(args.write_dir))
-
     # write raw question/answers to csv
     df[['Question Raw', 'Answer Raw']].to_csv('{}qa_pairs_raw.csv'
                                               .format(args.write_dir),
