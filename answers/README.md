@@ -5,17 +5,13 @@ This project scrapes question-answer pairs from a specific topic on [Answers
 
 ### Environment:
 
-- Python 3.7.4
+- Python 3.8.5
 
-### Python Packages:
+### Install Python Packages:
 
-- requests
-- pandas
-- bs4
-- unidecode
-- nltk (Download extras: punkt)
-- inflect
-- gensim
+```
+$ pip install -r requirements.txt
+```
 
 ### Prerequisites:
 

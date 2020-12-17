@@ -4,12 +4,13 @@ This project uses the [Alpha Vantage API](https://www.alphavantage.co/) to query
 
 ### Environment:
 
-- Python 3.7.4
+- Python 3.8.5
 
-### Python Packages:
+### Install Python Packages:
 
-- requests
-- pandas
+```
+$ pip install -r requirements.txt
+```
 
 ### Prerequisites:
 

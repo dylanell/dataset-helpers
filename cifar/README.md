@@ -2,13 +2,13 @@
 
 ### Environment:
 
-- Python 3.7.4
+- Python 3.8.5
 
-### Python Packages:
+### Install Python Packages:
 
-- numpy
-- opencv
-- pandas
+```
+$ pip install -r requirements.txt
+```
 
 ### Prerequisites:
 
