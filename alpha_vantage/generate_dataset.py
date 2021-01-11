@@ -21,6 +21,10 @@ def main():
     # each day (col) is an observation (row) of opening price data
     open_df = pd.DataFrame(columns=['timestamp'])
 
+    # create empty dataframe to hold day volume data
+    # each day (col) is an observation (row) of day volume
+    volume_df = pd.DataFrame(columns=['timestamp'])
+
     # get symbols for all markets
     nasdaq_symbols_df = pd.read_csv('market_symbols/nasdaq_symbols.csv')
     # amex_symbols_df = pd.read_csv('market_symbols/amex_symbols.csv')
@@ -59,14 +63,21 @@ def main():
             # we got some legit data for a symbol
             print('[INFO]: Writing data for {}'.format(symbol))
 
-            # add column if not already in dataset
+            # add open column if not already in dataset
             open_df = open_df.merge(
                 data[['timestamp', 'open']], how='outer', on='timestamp')\
                 .rename({'open': symbol}, axis=1)
 
+            # add colume column if not already in dataset
+            volume_df = volume_df.merge(
+                data[['timestamp', 'volume']], how='outer', on='timestamp')\
+                .rename({'volume': symbol}, axis=1)
+
         # save data to csv
         open_df.to_csv(
             '{}open_prices.csv'.format(args.write_dir), index=False)
+        volume_df.to_csv(
+            '{}volume.csv'.format(args.write_dir), index=False)
 
 
 if __name__ == '__main__':
