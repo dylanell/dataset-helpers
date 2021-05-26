@@ -55,10 +55,13 @@ def main():
         # make soup
         soup = BeautifulSoup(page.content, 'html.parser')
 
-        # print('[INFO]: made soup from \'{}\', page: {}'\
-        #    .format(soup.title.text, page_num))
+        print(f"[INFO]: scraping \'{soup.title.text}\', page: {page_num}")
 
-        question_blocks = soup.findAll('div', {'typeof': 'Question'})
+        #question_blocks = soup.find_all('div', {'typeof': 'Question'})
+        question_blocks = soup.find_all(
+            'div', 
+            {"class": "grid grid-cols-1 cursor-pointer justify-start items-start qCard my-4 p-4 bg-white md:rounded shadow-cardGlow"}
+        )
 
         # check if questions on this page, otherwise break loop
         if len(question_blocks) > 0:

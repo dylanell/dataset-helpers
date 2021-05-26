@@ -40,16 +40,12 @@ $ python generate_png_dataset.py https://www.answers.com/t/<your_topic> <path/to
 ```
 
 Optionally, change the `min_samples` argument to control the minimum number
- of samples to scrape. The script writes pre-processed question-answer pairs
-  to a `pickle` file after collecting at least `min_samples` question-answer
-   pairs, or by running out of topic pages.
+of samples to scrape. The script terminates after collecting at least 
+`min_samples` question-answer pairs, or by running out of topic pages.
 
 Running the above script produces two artifacts; a data file of question
--answer pairs accompanied by a vocabulary dictionary mapping unique integer
- values to every unique word found in the question-answer pairs data file.
-
-The question-answer pairs data file is saved in both unprocessed and
- processed formats. The unprocessed data file is witten in the format:
+-answer pairs in both unprocessed and processed formats. The unprocessed data 
+file is witten in the format:
 
 ```
 Question Raw, Answer Raw,
@@ -67,8 +63,8 @@ Processed question 2, Processed answer 2
 ...
 ```
 
-The processed data file is constructed such that simple tokenization by
- whitespace can be performed if using this data file for NLP applications.
+The processed data file is constructed such that simple tokenization by 
+whitespace can be performed if using this data file for NLP applications.
 
 ### References:
 
